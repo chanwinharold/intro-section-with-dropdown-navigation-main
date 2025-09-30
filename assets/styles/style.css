@@ -1,6 +1,158 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+/*@media (prefers-reduced-motion: no-preference) {*/
+/*  html {*/
+/*    interpolate-size: allow-keywords;*/
+/*  }*/
+/*}*/
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+a {
+  text-decoration: unset;
+  color: unset;
+}
+
 :root {
+  scroll-behavior: smooth;
   font-size: 18px;
+  font-weight: 500;
   font-family: Epilogue, Montserrat, Aria, sans-serif;
+}
+
+.header {
+  width: min(100%, 1440px);
+  margin: auto;
+  display: flex;
+  gap: 3rem;
+  padding: 2rem 3rem;
+}
+.header__left-wrapper {
+  flex: 1;
+  display: flex;
+  column-gap: 4rem;
+  align-items: center;
+}
+.header__logo {
+  min-width: fit-content;
+  display: grid;
+}
+.header__logo path {
+  fill: #151515;
+}
+.header__navbar {
+  width: 100%;
+  display: flex;
+  gap: 4rem;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 2rem;
+}
+.header__btn-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.header__btn-two {
+  border: 2px solid;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+}
+.header__items a, .header__btn-one, .header__btn-two {
+  text-transform: capitalize;
+  cursor: pointer;
+  opacity: 50%;
+  transition: opacity, transform 300ms ease-out;
+}
+.header__items a:hover, .header__btn-one:hover, .header__btn-two:hover {
+  opacity: 100%;
+  transform: scale(1.1);
+}
+.header__menu-wrapper {
+  display: flex;
+  align-items: center;
+}
+@media screen and (min-width: 950px) {
+  .header__menu-wrapper {
+    display: none;
+  }
+}
+
+.main {
+  width: min(100%, 1024px);
+  margin: auto;
+}
+
+/*****************************************************************/
+/************************CLASSES COMPONENTS***********************/
+/*****************************************************************/
+.hidden {
+  display: none;
+}
+
+/*****************************************************************/
+/************************MEDIA QUERIES****************************/
+/*****************************************************************/
+@media screen and (max-width: 950px) {
+  .header {
+    justify-content: space-between;
+    padding-inline: 1rem;
+  }
+  .header__navbar {
+    position: absolute;
+    right: -100%;
+    flex-direction: column;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

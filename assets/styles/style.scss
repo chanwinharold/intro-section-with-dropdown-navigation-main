@@ -1,17 +1,109 @@
-// Colors
+@use 'reset.css';
 
+// Colors
 // Neutral
 $gray-50: hsl(0, 0%, 98%);
 $gray-500: hsl(0, 0%, 41%);
 $gray-950: hsl(0, 0%, 8%);
 
 // Typography
-
 // Body Copy
 $fw-normal: 500;
 $fw-bold: 700;
-
 :root {
+    scroll-behavior: smooth;
     font-size: 18px;
+    font-weight: $fw-normal;
     font-family: Epilogue, Montserrat, Aria, sans-serif; }
 
+// Mixins
+@mixin container-size($max-w) {
+    width: min(100%, $max-w);
+    margin: auto;
+}
+
+.header {
+    @include container-size(1440px);
+    display: flex; gap: 3rem;
+    padding: 2rem 3rem;
+
+    &__left-wrapper {
+        flex: 1;
+        display: flex; column-gap: 4rem;
+        align-items: center;
+    }
+    &__logo {
+        min-width: fit-content;
+        display: grid;
+        path {fill: #151515;}
+    }
+    &__navbar {
+        width: 100%;
+        display: flex; gap: 4rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__list {
+        list-style: none; padding: 0;
+        display: flex; gap: 2rem;
+    }
+    &__items a {
+
+    }
+
+    &__btn-wrapper {
+        display: flex; gap: 2rem;
+        align-items: center;
+    }
+    &__btn-two {
+        border: 2px solid;
+        padding: 0.25rem 1rem;
+        border-radius: 0.5rem;
+    }
+
+    &__items a, &__btn-one, &__btn-two {
+        text-transform: capitalize;
+        cursor: pointer; opacity: 50%;
+        transition: opacity, transform 300ms ease-out;
+        &:hover {opacity: 100%; transform: scale(1.1)}
+    }
+
+    &__menu-wrapper {
+        display: flex;
+        align-items: center;
+        @media screen and (min-width: 950px) {
+            display: none;
+        }
+    }
+
+}
+.main {
+    @include container-size(1024px)
+
+
+}
+
+
+/*****************************************************************/
+/************************CLASSES COMPONENTS***********************/
+/*****************************************************************/
+
+.hidden {
+    display: none;
+}
+
+/*****************************************************************/
+/************************MEDIA QUERIES****************************/
+/*****************************************************************/
+
+@media screen and (max-width: 950px) {
+    .header {
+        justify-content: space-between;
+        padding-inline: 1rem;
+        &__navbar {
+            position: absolute;
+            right: -100%;
+            flex-direction: column;
+        }
+    }
+}
