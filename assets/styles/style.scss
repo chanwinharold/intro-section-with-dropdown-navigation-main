@@ -21,6 +21,11 @@ $fw-bold: 700;
     width: min(100%, $max-w);
     margin: auto;
 }
+@mixin clients-size($breakpoint, $width) {
+    @media screen and (max-width: $breakpoint){
+        width: $width;
+    }
+}
 
 .header {
     @include container-size(1440px);
@@ -39,7 +44,7 @@ $fw-bold: 700;
     }
     &__navbar {
         width: 100%;
-        display: flex; gap: 4rem;
+        display: flex; column-gap: 4rem;
         justify-content: space-between;
         align-items: center;
     }
@@ -47,50 +52,76 @@ $fw-bold: 700;
         list-style: none; padding: 0;
         display: flex; gap: 2rem;
     }
-    &__items a {
-
-    }
-
     &__btn-wrapper {
         display: flex; gap: 2rem;
         align-items: center;
     }
-    &__btn-two {
-        border: 2px solid;
-        padding: 0.25rem 1rem;
-        border-radius: 0.5rem;
-    }
 
     &__items a, &__btn-one, &__btn-two {
-        text-transform: capitalize;
-        cursor: pointer; opacity: 50%;
+        text-transform: capitalize; opacity: 50%;
         transition: opacity, transform 300ms ease-out;
         &:hover {opacity: 100%; transform: scale(1.1)}
     }
 
-    &__menu-wrapper {
-        display: flex;
-        align-items: center;
-        @media screen and (min-width: 950px) {
-            display: none;
+    &__btn-open { place-self: center; @media screen and (min-width: 950px) {display: none;} }
+    &__btn-close { @media screen and (min-width: 950px) {display: none;} }
+
+    &__items a, &__btn-one, &__btn-two, &__btn-open, &__btn-close { cursor: pointer; }
+}
+.main {
+    @include container-size(1024px);
+    display: flex; flex-direction: row-reverse;
+    justify-content: space-between; column-gap: 5rem;
+    align-items: center; margin-bottom: 3rem;
+
+    &__image-wrapper {
+        animation: infinite-ping 1000ms ease-out alternate-reverse;
+        animation-iteration-count: infinite;
+        &:hover { animation-play-state: paused; }
+    }
+    &__content { display: flex; row-gap: 1.5rem; flex-direction: column; }
+    &__title { line-height: 1.5ch; font-size: 3.5em; }
+    &__paragraph {opacity: 75%;}
+    &__btn {
+        width: fit-content;
+        font-weight: $fw-bold;
+        background: black; color: white;
+        transition: all 250ms ease-in;
+        &:hover {
+            background-color: white; color: black; cursor: pointer;
+            box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
         }
     }
 
+    &__content-wrapper {
+        display: flex; gap: 3rem;
+        flex-direction: column;
+        padding: 3rem 1rem;
+        animation: main-appear 1500ms ease-in-out;
+    }
+    &__clients-wrapper {
+        display: flex; gap: 2rem;
+        flex-wrap: wrap;
+    }
+    &__clients-wrapper img {
+        object-fit: contain;
+        border-radius: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        width: 80px; cursor: pointer;
+        @include clients-size(768px, 80px);
+        @include clients-size(425px, 65px);
+        @include clients-size(375px, 50px);
+
+        transition: all 500ms ease-out;
+        &:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+        }
+
+    }
+
 }
-.main {
-    @include container-size(1024px)
 
-
-}
-
-
-/*****************************************************************/
-/************************CLASSES COMPONENTS***********************/
-/*****************************************************************/
-
-.hidden {
-    display: none;
-}
 
 /*****************************************************************/
 /************************MEDIA QUERIES****************************/
@@ -101,9 +132,70 @@ $fw-bold: 700;
         justify-content: space-between;
         padding-inline: 1rem;
         &__navbar {
-            position: absolute;
-            right: -100%;
-            flex-direction: column;
+            width: min(75%, 350px);
+            position: fixed; z-index: 10;
+            top: 0; bottom: 0; right: 0;
+            background: white;
+            flex-direction: column; row-gap: 2rem;
+            justify-content: flex-start;
+            padding: 2rem 1.5rem; margin-right: -100%;
+            transition: margin-right 500ms ease-out;
         }
+        &__btn-close {
+            align-self: flex-end;
+            &:active {transition: transform 100ms ease-out; transform: rotate(90deg);}
+        }
+        &__list {flex-direction: column; align-self: flex-start;}
+        &__btn-wrapper {flex-direction: column; width: 100%; text-align: center;}
+        &__btn-two {min-width: 80%;}
     }
+
+    .main {
+        flex-direction: column;
+        align-items: center;
+        &__image-wrapper {animation-iteration-count: 2;}
+        &__content { text-align: center; max-width: 500px}
+        &__title {line-height: 1.8ch; font-size: 1.75em;}
+        &__btn { align-self: center; }
+        &__clients-wrapper { justify-content: center; flex-wrap: wrap; gap: 1rem;}
+    }
+}
+
+
+/*****************************************************************/
+/************************CLASSES COMPONENTS***********************/
+/*****************************************************************/
+
+.hidden { display: none; }
+.hidden-nav { @media screen and (max-width: 950px) {margin-right: 0 !important;} }
+.bg-blur {
+    @media screen and (max-width: 950px) {
+        position: fixed; inset: 0; z-index: 5;
+        background: rgba(0, 0, 0, 0.5);}
+}
+.btn-rounded {
+    border: 2px solid;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.75rem;
+}
+
+
+/*****************************************************************/
+/*****************************@KEYFRAMES**************************/
+/*****************************************************************/
+
+@keyframes infinite-ping {
+    from {transform: translateY(35px);}
+    to {transform: translateY(0px);}
+}
+@keyframes main-appear {
+    from {
+        transform: translateX(-200%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
 }
