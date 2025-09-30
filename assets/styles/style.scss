@@ -1,4 +1,7 @@
 @use 'reset.css';
+@use "features";
+@use "company";
+
 
 // Colors
 // Neutral
@@ -26,6 +29,41 @@ $fw-bold: 700;
         width: $width;
     }
 }
+@mixin floating-menu {
+    display: inline-flex;
+    place-items: center;
+    column-gap: 0.5rem;
+
+    li:has(&) {
+        display: flex; flex-direction: column;
+        row-gap: 1.5rem;
+    }
+    &__wrapper {
+        padding-left: 1.5rem;
+        @media screen and (min-width: 950px) {
+            position: absolute;
+            top: 50px;
+            padding: 1rem;
+            box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+            background: white;
+            border-radius: 1rem;
+        }
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+        text-transform: capitalize;
+    }
+}
+
+
+/*****************************************************************/
+/*************************** STYLES ******************************/
+/*****************************************************************/
 
 .header {
     @include container-size(1440px);
@@ -58,9 +96,9 @@ $fw-bold: 700;
     }
 
     &__items a, &__btn-one, &__btn-two {
-        text-transform: capitalize; opacity: 50%;
-        transition: opacity, transform 300ms ease-out;
-        &:hover {opacity: 100%; transform: scale(1.1)}
+        text-transform: capitalize; color: $gray-500;
+        transition: color, transform 300ms ease-out;
+        &:hover {color: $gray-950; transform: scale(1.1)}
     }
 
     &__btn-open { place-self: center; @media screen and (min-width: 950px) {display: none;} }
@@ -81,14 +119,14 @@ $fw-bold: 700;
     }
     &__content { display: flex; row-gap: 1.5rem; flex-direction: column; }
     &__title { line-height: 1.5ch; font-size: 3.5em; }
-    &__paragraph {opacity: 75%;}
+    &__paragraph {color: $gray-500;}
     &__btn {
         width: fit-content;
         font-weight: $fw-bold;
-        background: black; color: white;
+        background: $gray-950; color: $gray-50;
         transition: all 250ms ease-in;
         &:hover {
-            background-color: white; color: black; cursor: pointer;
+            background-color: $gray-50; color: $gray-950; cursor: pointer;
             box-shadow: rgb(38, 57, 77) 0 20px 30px -10px;
         }
     }
@@ -97,7 +135,7 @@ $fw-bold: 700;
         display: flex; gap: 3rem;
         flex-direction: column;
         padding: 3rem 1rem;
-        animation: main-appear 1500ms ease-in-out;
+        animation: main-appear 800ms ease-in-out;
     }
     &__clients-wrapper {
         display: flex; gap: 2rem;
@@ -133,16 +171,17 @@ $fw-bold: 700;
         padding-inline: 1rem;
         &__navbar {
             width: min(75%, 350px);
+            height: 100vh; overflow-y: auto;
             position: fixed; z-index: 10;
             top: 0; bottom: 0; right: 0;
-            background: white;
+            background: $gray-50;
             flex-direction: column; row-gap: 2rem;
             justify-content: flex-start;
             padding: 2rem 1.5rem; margin-right: -100%;
             transition: margin-right 500ms ease-out;
         }
         &__btn-close {
-            align-self: flex-end;
+            align-self: flex-end; min-width: 26px; min-height: 26px;
             &:active {transition: transform 100ms ease-out; transform: rotate(90deg);}
         }
         &__list {flex-direction: column; align-self: flex-start;}
@@ -168,6 +207,7 @@ $fw-bold: 700;
 
 .hidden { display: none; }
 .hidden-nav { @media screen and (max-width: 950px) {margin-right: 0 !important;} }
+.relative {position: relative;}
 .bg-blur {
     @media screen and (max-width: 950px) {
         position: fixed; inset: 0; z-index: 5;
@@ -177,6 +217,25 @@ $fw-bold: 700;
     border: 2px solid;
     padding: 0.5rem 1.5rem;
     border-radius: 0.75rem;
+}
+.features, .company {
+    @include floating-menu;
+}
+.arrow-down {
+    &:after {
+        content: " ";
+        width: 10px;
+        height: 6px;
+        background: url(../images/icon-arrow-down.svg);
+    }
+}
+.arrow-up {
+    &:after {
+        content: " ";
+        width: 10px;
+        height: 6px;
+        background: url(../images/icon-arrow-up.svg);
+    }
 }
 
 
@@ -190,12 +249,11 @@ $fw-bold: 700;
 }
 @keyframes main-appear {
     from {
-        transform: translateX(-200%);
+        transform: translateX(-100%);
         opacity: 0;
     }
     to {
         transform: translateX(0);
         opacity: 1;
     }
-
 }

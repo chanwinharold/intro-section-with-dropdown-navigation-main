@@ -1,0 +1,13 @@
+.company {
+  display: inline-flex;
+  place-items: center;
+  column-gap: 0.5rem;
+}
+.company:after {
+  content: " ";
+  width: 10px;
+  height: 6px;
+  background: url(../images/icon-arrow-down.svg);
+}
+
+/*# sourceMappingURL=company.css.map */

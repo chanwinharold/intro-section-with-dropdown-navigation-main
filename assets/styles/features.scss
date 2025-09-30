@@ -1,0 +1,55 @@
+.features__items {
+    display: inline-flex;
+    place-items: center;
+    column-gap: 0.75rem;
+}
+
+
+
+
+/*****************************************************************/
+/************************MEDIA QUERIES****************************/
+/*****************************************************************/
+
+@media screen and (min-width: 950px) {
+    .features:hover + .features__wrapper {
+        display: block;
+    }
+}
+
+/*****************************************************************/
+/************************CLASSES COMPONENTS***********************/
+/*****************************************************************/
+
+.todolist {
+    &:before {
+        content: " ";
+        width: 14px;
+        height: 16px;
+        background: url(../images/icon-todo.svg);
+    }
+}
+.calendar {
+    &:before {
+        content: " ";
+        width: 16px;
+        height: 16px;
+        background: url(../images/icon-calendar.svg);
+    }
+}
+.reminders {
+    &:before {
+        content: " ";
+        width: 13px;
+        height: 17px;
+        background: url(../images/icon-reminders.svg);
+    }
+}
+.planning {
+    &:before {
+        content: " ";
+        width: 16px;
+        height: 16px;
+        background: url(../images/icon-planning.svg);
+    }
+}
